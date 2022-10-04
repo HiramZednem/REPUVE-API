@@ -15,4 +15,9 @@ For this project we are going to use the next technologies:
   + JPA
   + MAVEN
   + MySQLServer 8.0.30
+  
+---------------------
+
+## Entity-Relationship Model
+![Entity-Relationship Model](project-info/ERD/diagram.png)
 
