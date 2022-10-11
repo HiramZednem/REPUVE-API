@@ -18,6 +18,5 @@ public class Insurance {
     @Column(nullable = false)
     private String headquarter;
 
-    @Column(nullable = false)
     private String website;
 }
