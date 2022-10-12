@@ -1,4 +1,4 @@
-package com.escuelita.demo.entites;
+package com.escuelita.demo.entities;
 
 import lombok.Getter;
 import lombok.Setter;
