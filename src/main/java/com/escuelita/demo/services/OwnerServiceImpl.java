@@ -69,6 +69,7 @@ public class OwnerServiceImpl implements IOwnerService {
         owner.setCity(request.getCity());
         owner.setAddress(request.getAddress());
         owner.setPhoneNumber(request.getPhoneNumber());
+
           return owner;
     }
     private GetOwnerResponse from(Owner owner){
