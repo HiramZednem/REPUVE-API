@@ -5,6 +5,8 @@ import lombok.Setter;
 @Getter @Setter
 public class CreateCarResponse {
 
+    private Long id;
+
     private int year;
 
     private double price;

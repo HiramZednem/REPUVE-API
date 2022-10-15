@@ -7,11 +7,12 @@ import com.escuelita.demo.entities.car;
 import com.escuelita.demo.repository.ICarRepository;
 import com.escuelita.demo.service.interfaces.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CarServiceImpl implements ICarService {
 
     @Autowired
@@ -85,6 +86,7 @@ public class CarServiceImpl implements ICarService {
     }
     private CreateCarResponse carToCarReponse (car carToBS){
         CreateCarResponse carResponse = new CreateCarResponse();
+        carResponse.setId(carToBS.getId());
         carResponse.setYear(carToBS.getYear());
         carResponse.setPrice(carToBS.getPrice());
         carResponse.setMileage(carToBS.getMileage());
