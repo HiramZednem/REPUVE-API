@@ -1,8 +1,10 @@
-package com.escuelita.demo.service.interfaces;
+package com.escuelita.demo.services.interfaces;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateCarRequest;
 import com.escuelita.demo.controller.dtos.response.CreateCarResponse;
 import com.escuelita.demo.controller.dtos.response.CreateUpdateCarResponse;
+import com.escuelita.demo.controllers.dtos.responses.CreateCarResponse;
+import com.escuelita.demo.controllers.dtos.responses.CreateUpdateCarResponse;
 
 import java.util.List;
 

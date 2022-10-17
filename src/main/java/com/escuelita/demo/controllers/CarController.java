@@ -3,7 +3,9 @@ package com.escuelita.demo.controllers;
 import com.escuelita.demo.controllers.dtos.requests.CreateCarRequest;
 import com.escuelita.demo.controller.dtos.response.CreateCarResponse;
 import com.escuelita.demo.controller.dtos.response.CreateUpdateCarResponse;
-import com.escuelita.demo.service.interfaces.ICarService;
+import com.escuelita.demo.controllers.dtos.responses.CreateCarResponse;
+import com.escuelita.demo.controllers.dtos.responses.CreateUpdateCarResponse;
+import com.escuelita.demo.services.interfaces.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
