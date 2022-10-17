@@ -1,11 +1,13 @@
-package com.escuelita.demo.service;
+package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateCarRequest;
 import com.escuelita.demo.controller.dtos.response.CreateCarResponse;
 import com.escuelita.demo.controller.dtos.response.CreateUpdateCarResponse;
-import com.escuelita.demo.entities.car;
+import com.escuelita.demo.controllers.dtos.responses.CreateCarResponse;
+import com.escuelita.demo.controllers.dtos.responses.CreateUpdateCarResponse;
+import com.escuelita.demo.entities.Car;
 import com.escuelita.demo.repositories.ICarRepository;
-import com.escuelita.demo.service.interfaces.ICarService;
+import com.escuelita.demo.services.interfaces.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class CarServiceImpl implements ICarService {
     //CREATE
     @Override
     public CreateCarResponse createCar(CreateCarRequest carRequest){
-        car carToBD = repository.save(createNewCar(carRequest));
+        Car carToBD = repository.save(createNewCar(carRequest));
         return carToCarReponse(carToBD);
     }
 
@@ -29,9 +31,9 @@ public class CarServiceImpl implements ICarService {
     //ONE
     @Override
     public CreateCarResponse seeCar(Long id){
-        Optional<car> carToBDOptional = repository.findById(id);
+        Optional<Car> carToBDOptional = repository.findById(id);
         if(carToBDOptional.isPresent()){
-            car carToBD = carToBDOptional.get();
+            Car carToBD = carToBDOptional.get();
             return carToCarReponse(carToBD);
         }
         throw  new RuntimeException("NAH NAH Bye bye");
@@ -40,7 +42,7 @@ public class CarServiceImpl implements ICarService {
     @Override
     public List<CreateCarResponse> seeCars(){
         List<CreateCarResponse> listCarResponse = new ArrayList<>();
-        List<car> listAllCar = repository.findAll();
+        List<Car> listAllCar = repository.findAll();
 
         for ( int i=0; i<listAllCar.size();i++){
             listCarResponse.add(carToCarReponse(listAllCar.get(i)));
@@ -52,10 +54,10 @@ public class CarServiceImpl implements ICarService {
     //UPDATE
     @Override
     public CreateUpdateCarResponse updateCar(Long id, CreateCarRequest carRequest){
-        Optional<com.escuelita.demo.entities.car> carOptional = repository.findById(id);
+        Optional<Car> carOptional = repository.findById(id);
 
         if(carOptional.isPresent()){
-            car newCar = createNewCar(carRequest);
+            Car newCar = createNewCar(carRequest);
 
             newCar.setId(carOptional.get().getId());
             repository.save(newCar);
@@ -75,8 +77,8 @@ public class CarServiceImpl implements ICarService {
 
     //FUNTIONS
     //CREATEEEE
-    private car createNewCar (CreateCarRequest carRequest){
-        car newCar= new car();
+    private Car createNewCar (CreateCarRequest carRequest){
+        Car newCar= new Car();
         newCar.setYear(carRequest.getYear());
         newCar.setPrice(carRequest.getPrice());
         newCar.setMileage(carRequest.getMileage());
@@ -84,7 +86,7 @@ public class CarServiceImpl implements ICarService {
         newCar.setModel(carRequest.getModel());
         return newCar;
     }
-    private CreateCarResponse carToCarReponse (car carToBS){
+    private CreateCarResponse carToCarReponse (Car carToBS){
         CreateCarResponse carResponse = new CreateCarResponse();
         carResponse.setId(carToBS.getId());
         carResponse.setYear(carToBS.getYear());
@@ -94,7 +96,7 @@ public class CarServiceImpl implements ICarService {
         carResponse.setModel(carToBS.getModel());
         return carResponse;
     }
-    private CreateUpdateCarResponse carToUpdateCar (car newCar){
+    private CreateUpdateCarResponse carToUpdateCar (Car newCar){
         CreateUpdateCarResponse updateCar = new CreateUpdateCarResponse();
         updateCar.setYear(newCar.getYear());
         updateCar.setPrice(newCar.getPrice());
