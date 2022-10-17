@@ -36,7 +36,7 @@ public class EngineController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(Long id){
+    public void delete(@PathVariable Long id){
         service.delete(id);
     }
 }

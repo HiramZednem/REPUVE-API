@@ -56,8 +56,8 @@ public class EngineServiceImpl implements IEngineService{
 
     private Engine from(CreateEngineRequest request){
         Engine engine=new Engine();
-        Engine.setCylinder(request.getCylinder());
-        Engine.setEngineType(request.getEngineType());
+        engine.setCylinder(request.getCylinder());
+        engine.setEngineType(request.getEngineType());
         return engine;
     }
 
