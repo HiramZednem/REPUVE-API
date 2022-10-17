@@ -1,4 +1,4 @@
-package com.escuelita.demo.repository;
+package com.escuelita.demo.repositories;
 
 import com.escuelita.demo.entities.car;
 import org.springframework.data.jpa.repository.JpaRepository;

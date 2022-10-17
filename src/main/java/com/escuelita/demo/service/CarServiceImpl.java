@@ -4,7 +4,7 @@ import com.escuelita.demo.controller.dtos.request.CreateCarRequest;
 import com.escuelita.demo.controller.dtos.response.CreateCarResponse;
 import com.escuelita.demo.controller.dtos.response.CreateUpdateCarResponse;
 import com.escuelita.demo.entities.car;
-import com.escuelita.demo.repository.ICarRepository;
+import com.escuelita.demo.repositories.ICarRepository;
 import com.escuelita.demo.service.interfaces.ICarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
