@@ -1,11 +1,10 @@
-package com.escuelita.demo.controller.dtos.response;
+package com.escuelita.demo.controllers.dtos.requests;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CreateUpdateCarResponse {
-
-    private Long id;
+public class CreateCarRequest {
 
     private int year;
 

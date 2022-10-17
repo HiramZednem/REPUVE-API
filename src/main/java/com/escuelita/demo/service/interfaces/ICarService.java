@@ -1,6 +1,6 @@
 package com.escuelita.demo.service.interfaces;
 
-import com.escuelita.demo.controller.dtos.request.CreateCarRequest;
+import com.escuelita.demo.controllers.dtos.requests.CreateCarRequest;
 import com.escuelita.demo.controller.dtos.response.CreateCarResponse;
 import com.escuelita.demo.controller.dtos.response.CreateUpdateCarResponse;
 

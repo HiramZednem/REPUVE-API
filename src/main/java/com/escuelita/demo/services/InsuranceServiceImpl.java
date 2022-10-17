@@ -1,7 +1,7 @@
 package com.escuelita.demo.services;
 
-import com.escuelita.demo.controllers.requests.CreateInsuranceRequest;
-import com.escuelita.demo.controllers.requests.UpdateInsuranceRequest;
+import com.escuelita.demo.controllers.dtos.requests.CreateInsuranceRequest;
+import com.escuelita.demo.controllers.dtos.requests.UpdateInsuranceRequest;
 import com.escuelita.demo.controllers.responses.CreateInsuranceResponse;
 import com.escuelita.demo.controllers.responses.GetInsuranceResponse;
 import com.escuelita.demo.controllers.responses.UpdateInsuranceResponse;
