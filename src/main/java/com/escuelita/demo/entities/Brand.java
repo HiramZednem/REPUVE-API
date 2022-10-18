@@ -2,7 +2,6 @@ package com.escuelita.demo.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
 
