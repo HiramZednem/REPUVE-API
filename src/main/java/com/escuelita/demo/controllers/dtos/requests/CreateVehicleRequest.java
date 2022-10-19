@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CreateCarRequest {
+public class CreateVehicleRequest {
 
     private int year;
 

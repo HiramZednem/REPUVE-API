@@ -1,9 +1,9 @@
 package com.escuelita.demo.controllers;
 
-import com.escuelita.demo.controllers.dtos.requests.CreateCarRequest;
-import com.escuelita.demo.controllers.dtos.responses.CreateCarResponse;
-import com.escuelita.demo.controllers.dtos.responses.CreateUpdateCarResponse;
-import com.escuelita.demo.services.interfaces.ICarService;
+import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
+import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
+import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
+import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,30 +11,30 @@ import java.util.List;
 
 @RestController
 @RequestMapping("car")
-public class CarController {
+public class VehicleController {
 
     @Autowired
-    ICarService service;
+    IVehicleService service;
 
     //CREATE
     @PostMapping
-    CreateCarResponse createCar(@RequestBody CreateCarRequest carRequest){
+    CreateVehicleResponse createCar(@RequestBody CreateVehicleRequest carRequest){
         return service.createCar(carRequest);
     }
 
     //READ
     @GetMapping("{id}")
-    CreateCarResponse seeCar(@PathVariable Long id){
+    CreateVehicleResponse seeCar(@PathVariable Long id){
          return service.seeCar(id);
     }
     @GetMapping
-    List<CreateCarResponse> seeCars(){
+    List<CreateVehicleResponse> seeCars(){
         return service.seeCars();
     }
 
     //UPDATE
     @PutMapping("{id}")
-    CreateUpdateCarResponse updateCar(@PathVariable Long id, @RequestBody CreateCarRequest carRequest){
+    CreateUpdateVehicleResponse updateCar(@PathVariable Long id, @RequestBody CreateVehicleRequest carRequest){
          return service.updateCar(id, carRequest);
     }
 

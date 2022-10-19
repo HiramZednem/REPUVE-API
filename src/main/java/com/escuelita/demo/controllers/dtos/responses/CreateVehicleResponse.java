@@ -3,9 +3,8 @@ package com.escuelita.demo.controllers.dtos.responses;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-public class CreateUpdateCarResponse {
+@Getter  @Setter
+public class CreateVehicleResponse {
 
     private Long id;
 
