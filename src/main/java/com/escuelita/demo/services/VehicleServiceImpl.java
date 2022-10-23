@@ -1,17 +1,23 @@
 package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
+import com.escuelita.demo.controllers.dtos.responses.VehicleResponse;
 import com.escuelita.demo.entities.Vehicle;
+import com.escuelita.demo.entities.projections.VehicleProjection;
 import com.escuelita.demo.repositories.IVehicleRepository;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class VehicleServiceImpl implements IVehicleService {
 
@@ -62,16 +68,28 @@ public class VehicleServiceImpl implements IVehicleService {
 
             return carToUpdateCar(newVehicle);
         }
-        throw new RuntimeException("ERROR XXXXXXX");
+        throw new RuntimeException("Vehicle do not exist");
 
     }
 
     //DELETE
     @Override
-    public void deleteCar(Long id){repository.deleteById(id);}
+    public void deleteCar(Long id){repository.deleteById(id);
+    }
 
+    @Override
+    public BaseResponse listAllVehiclesByOwnerId(Long ownerId) {
+        List<VehicleProjection> vehicles= repository.listAllVehiclesByOwnerId(ownerId);
+       List<VehicleResponse> response = vehicles.stream()
+               .map(this::from)
+               .collect(Collectors.toList());
 
-
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list by owner id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
 
     //FUNTIONS
     //CREATEEEE
@@ -102,6 +120,17 @@ public class VehicleServiceImpl implements IVehicleService {
         updateCar.setColor(newVehicle.getColor());
         updateCar.setModel(newVehicle.getModel());
         return updateCar;
+    }
+    private VehicleResponse from(VehicleProjection projection){
+        VehicleResponse response = new VehicleResponse();
+        response.setId(projection.getId());
+        response.setColor(projection.getColor());
+        response.setMileage(projection.getMileage());
+        response.setYear(projection.getYear());
+        response.setModel(projection.getModel());
+        response.setOwnerName(projection.getOwnerName());
+
+        return response;
     }
 
 }
