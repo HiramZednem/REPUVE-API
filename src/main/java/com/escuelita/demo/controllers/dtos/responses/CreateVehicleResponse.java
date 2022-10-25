@@ -17,4 +17,6 @@ public class CreateVehicleResponse {
     private String color;
 
     private String model;
+
+     private OwnerResponse ownerName;
 }

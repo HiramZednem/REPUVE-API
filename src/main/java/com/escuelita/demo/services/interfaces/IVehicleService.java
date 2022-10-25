@@ -4,6 +4,8 @@ import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
 import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
+import com.escuelita.demo.entities.Owner;
+import com.escuelita.demo.entities.Vehicle;
 
 import java.util.List;
 

@@ -1,13 +1,12 @@
 package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
-import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
-import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
-import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
-import com.escuelita.demo.controllers.dtos.responses.VehicleResponse;
+import com.escuelita.demo.controllers.dtos.responses.*;
+import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.entities.Vehicle;
 import com.escuelita.demo.entities.projections.VehicleProjection;
 import com.escuelita.demo.repositories.IVehicleRepository;
+import com.escuelita.demo.services.interfaces.IOwnerService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +22,9 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired
     IVehicleRepository repository;
+
+    @Autowired
+    IOwnerService ownerService;
 
     //CREATE
     @Override
@@ -62,10 +64,10 @@ public class VehicleServiceImpl implements IVehicleService {
 
         if(carOptional.isPresent()){
             Vehicle newVehicle = createNewCar(carRequest);
-
             newVehicle.setId(carOptional.get().getId());
+            Owner owner = ownerService.findById(carRequest.getOwnerId());
+            newVehicle.setOwner(owner);
             repository.save(newVehicle);
-
             return carToUpdateCar(newVehicle);
         }
         throw new RuntimeException("Vehicle do not exist");
@@ -91,6 +93,7 @@ public class VehicleServiceImpl implements IVehicleService {
                 .httpStatus(HttpStatus.OK).build();
     }
 
+
     //FUNTIONS
     //CREATEEEE
     private Vehicle createNewCar (CreateVehicleRequest carRequest){
@@ -110,8 +113,19 @@ public class VehicleServiceImpl implements IVehicleService {
         carResponse.setMileage(vehicleToBS.getMileage());
         carResponse.setColor(vehicleToBS.getColor());
         carResponse.setModel(vehicleToBS.getModel());
+//        carResponse.setOwnerName(from(vehicleToBS.getOwner()));
         return carResponse;
     }
+
+    private OwnerResponse from(Owner owner){
+        OwnerResponse ownerResponse = new OwnerResponse();
+        ownerResponse.setName(owner.getFirstName()+" "+ owner.getLastName());
+        return ownerResponse;
+    }
+
+
+
+
     private CreateUpdateVehicleResponse carToUpdateCar (Vehicle newVehicle){
         CreateUpdateVehicleResponse updateCar = new CreateUpdateVehicleResponse();
         updateCar.setYear(newVehicle.getYear());
@@ -119,6 +133,7 @@ public class VehicleServiceImpl implements IVehicleService {
         updateCar.setMileage(newVehicle.getMileage());
         updateCar.setColor(newVehicle.getColor());
         updateCar.setModel(newVehicle.getModel());
+        updateCar.setOwner(from(newVehicle.getOwner()));
         return updateCar;
     }
     private VehicleResponse from(VehicleProjection projection){

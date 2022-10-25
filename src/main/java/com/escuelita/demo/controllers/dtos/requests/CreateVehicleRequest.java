@@ -6,13 +6,16 @@ import lombok.Setter;
 @Getter @Setter
 public class CreateVehicleRequest {
 
-    private int year;
+    private Integer year;
 
-    private double price;
+    private Double price;
 
-    private double mileage;
+    private Double mileage;
 
     private String color;
 
     private String model;
+
+    // not use this variable when creating a new vehicle
+    private Long ownerId;
 }

@@ -6,6 +6,7 @@ import com.escuelita.demo.controllers.dtos.responses.GetOwnerResponse;
 import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.repositories.IOwnerRepository;
 import com.escuelita.demo.services.interfaces.IOwnerService;
+import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,6 @@ public class OwnerServiceImpl implements IOwnerService {
 
     @Autowired
     private IOwnerRepository repository;
-
 
     @Override
     public List<GetOwnerResponse> list() {
@@ -42,6 +42,11 @@ public class OwnerServiceImpl implements IOwnerService {
         Owner owner=repository.findById(id).orElseThrow(()->new RuntimeException("Owner do not exist"));
         owner= update(owner, request);
         return from(owner);
+    }
+
+    @Override
+    public Owner findById(Long ownerId) {
+        return repository.findById(ownerId).orElseThrow(()->new RuntimeException("Owner do not exist"));
     }
 
     @Override
