@@ -8,8 +8,10 @@ public class VehicleProjection {
     private Long Id;
     private String color;
     private Double mileage;
-    private Integer year;
     private String model;
+    private Double price;
+    private Integer year;
+    private Long ownerId;
     private String ownerName;
 
 }
