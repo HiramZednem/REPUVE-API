@@ -24,7 +24,7 @@ public class AgencyServiceImpl implements IAgencyService {
         GetAgencyResponse response = from(id);
         return BaseResponse.builder()
                 .data(response)
-                .message("Agency list by owner id")
+                .message("Agency by id")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
@@ -37,7 +37,7 @@ public class AgencyServiceImpl implements IAgencyService {
                 .collect(Collectors.toList());
         return BaseResponse.builder()
                 .data(response)
-                .message("Agency list by owner id")
+                .message("Agency list")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
@@ -49,7 +49,7 @@ public class AgencyServiceImpl implements IAgencyService {
         GetAgencyResponse response =from(repository.save(agency));
         return BaseResponse.builder()
                 .data(response)
-                .message("Agency list by owner id")
+                .message("create agency ")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
@@ -63,7 +63,7 @@ public class AgencyServiceImpl implements IAgencyService {
         GetAgencyResponse response=from(agency);
         return BaseResponse.builder()
                 .data(response)
-                .message("Agency list by owner id")
+                .message("Agency update")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK)
                 .build();
