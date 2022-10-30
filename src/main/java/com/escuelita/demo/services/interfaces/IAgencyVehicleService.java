@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IAgencyVehicleService {
     BaseResponse listAllAgenciesByVehicleId(Long vehicleId);
+    BaseResponse listAllVehicleByAgenciesId(Long agencyId);
 }

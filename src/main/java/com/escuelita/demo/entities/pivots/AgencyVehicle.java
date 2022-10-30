@@ -18,8 +18,10 @@ public class AgencyVehicle {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "agency_id")
     private Agency agency;
 
     @ManyToOne
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 }
