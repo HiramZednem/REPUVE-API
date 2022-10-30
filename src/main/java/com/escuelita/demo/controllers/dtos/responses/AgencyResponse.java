@@ -7,7 +7,5 @@ import lombok.Setter;
 @Setter
 public class AgencyResponse {
     private Long Id;
-    private String Address;
     private String Name;
-    private Long Cellphone_number;
 }
