@@ -81,7 +81,7 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Override
     public BaseResponse listAllVehiclesByOwnerId(Long ownerId) {
-        List<VehicleProjection> vehicles= repository.listAllVehiclesByOwnerId(ownerId);
+        List<VehicleProjection> vehicles = repository.listAllVehiclesByOwnerId(ownerId);
        List<VehicleResponse> response = vehicles.stream()
                .map(this::from)
                .collect(Collectors.toList());
@@ -143,7 +143,7 @@ public class VehicleServiceImpl implements IVehicleService {
         response.setMileage(projection.getMileage());
         response.setYear(projection.getYear());
         response.setModel(projection.getModel());
-        response.setOwnerName(projection.getOwnerName());
+        response.setOwnerName(projection.getFirstName() +" "+ projection.getLastName());
 
         return response;
     }

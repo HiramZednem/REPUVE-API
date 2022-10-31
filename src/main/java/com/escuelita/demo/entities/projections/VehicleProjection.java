@@ -1,8 +1,9 @@
 package com.escuelita.demo.entities.projections;
 
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 public class VehicleProjection {
 
     private Long Id;
@@ -12,6 +13,8 @@ public class VehicleProjection {
     private Double price;
     private Integer year;
     private Long ownerId;
-    private String ownerName;
+
+    private String firstName;
+    private String lastName;
 
 }

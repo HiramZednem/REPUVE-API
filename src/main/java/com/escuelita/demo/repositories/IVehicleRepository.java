@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface IVehicleRepository extends JpaRepository<Vehicle, Long> {
 
-    @Query(value = "select vehicles.*, owner.first_name + owner.last_name as ownerName from vehicles " +
-            "inner join owners owner on owner.id = vehicles.owner_id " +
+    @Query(value = "select vehicles.*, owner.first_name, owner.last_name from vehicles " +
+            "inner join owners owner on vehicles.owner_id = owner.id " +
             "where owner.id = vehicles.owner_id", nativeQuery = true)
     List<VehicleProjection> listAllVehiclesByOwnerId(Long ownerId);
 
