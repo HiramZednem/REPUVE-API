@@ -39,4 +39,7 @@ public class Owner {
 
     @OneToMany(mappedBy = "owner")
     private List<Vehicle> vehicles;
+
+    @ManyToOne()
+    private Insurance insurance;
 }
