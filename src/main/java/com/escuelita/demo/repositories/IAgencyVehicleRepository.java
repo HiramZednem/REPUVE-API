@@ -13,15 +13,15 @@ import java.util.List;
 @Repository
 public interface IAgencyVehicleRepository extends JpaRepository<AgencyVehicle,Long> {
 
-    @Query(value = "select * from agencies_vehicles "+
-            "inner join agencies on agencies_vehicles.agency_id =agency_id " +
+    @Query(value = "select agencies.* from agencies_vehicles "+
+            "inner join agencies on agencies_vehicles.agency_id = agency.id " +
             "where agencies_vehicles.vehicle_id = :vehicleId", nativeQuery = true)
     List<AgencyProjection> listAllAgenciesByVehicleId(Long vehicleId);
 
+
     @Query(value = "select vehicles.* from agencies_vehicles "+
-            "inner join agencies on agencies_vehicles.agency_id = agencies.id " +
-            "inner join vehicles on agencies_vehicles.vehicles_id = vehicles.id " +
-            "where agencies_vehicles.vehicle_id = :agencyId", nativeQuery = true)
+            "inner join vehicles on agencies_vehicles.vehicle_id = vehicles.id " +
+            "where agencies_vehicles.agency_id= :agencyId", nativeQuery = true)
     List<VehicleProjection> listAllVehicleByAgenciesId(Long agencyId);
 
 

@@ -26,7 +26,7 @@ public class AgencyVehicleController {
     }
     @GetMapping ("vehicle/agency/{agencyId}")
     public ResponseEntity<BaseResponse> listAllVehicleByAgenciesId(@PathVariable Long agencyId) {
-        BaseResponse baseResponse =  service.listAllAgenciesByVehicleId(agencyId);
+        BaseResponse baseResponse =  service.listAllVehicleByAgenciesId(agencyId);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
