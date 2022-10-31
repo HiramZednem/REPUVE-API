@@ -8,5 +8,7 @@ import lombok.Setter;
 @Setter
 public class VehicleResponse {
     private Long Id;
-    private String Name;
+    private String model;
+    private Integer year;
+    private String color;
 }

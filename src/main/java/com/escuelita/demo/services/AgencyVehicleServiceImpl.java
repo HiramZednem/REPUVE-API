@@ -46,7 +46,9 @@ public class AgencyVehicleServiceImpl implements IAgencyVehicleService {
     private VehicleResponse form(VehicleProjection vehicle){
         VehicleResponse response = new VehicleResponse();
         response.setId(vehicle.getId());
-        response.setName(vehicle.getName());
+        response.setColor(vehicle.getColor());
+        response.setModel(vehicle.getModel());
+        response.setYear(vehicle.getYear());
         return response;
     }
     private AgencyResponse from(AgencyProjection agency){
