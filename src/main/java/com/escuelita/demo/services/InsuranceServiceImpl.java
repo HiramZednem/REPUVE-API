@@ -5,7 +5,6 @@ import com.escuelita.demo.controllers.dtos.requests.UpdateInsuranceRequest;
 import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.GetInsuranceResponse;
 import com.escuelita.demo.controllers.responses.CreateInsuranceResponse;
-import com.escuelita.demo.controllers.responses.GetInsuranceResponse;
 import com.escuelita.demo.controllers.responses.UpdateInsuranceResponse;
 import com.escuelita.demo.entities.Insurance;
 import com.escuelita.demo.repositories.IInsuranceRepository;
