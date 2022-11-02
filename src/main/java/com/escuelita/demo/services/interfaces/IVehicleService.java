@@ -16,4 +16,6 @@ public interface IVehicleService {
     CreateUpdateVehicleResponse updateCar(Long id, CreateVehicleRequest carRequest);
     //DELETE
     void deleteCar(Long id);
+
+    List<CreateVehicleResponse>listAllVehiclesByBrandId (Long id);
 }

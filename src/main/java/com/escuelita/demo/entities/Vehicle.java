@@ -29,4 +29,7 @@ public class Vehicle {
     @Column(nullable = false)
     private String model;
 
+    @ManyToOne
+    private Brand brand;
+
 }

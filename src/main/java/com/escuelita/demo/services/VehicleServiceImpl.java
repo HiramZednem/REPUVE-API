@@ -1,10 +1,14 @@
 package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
+import com.escuelita.demo.controllers.dtos.responses.BrandResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
+import com.escuelita.demo.entities.Brand;
 import com.escuelita.demo.entities.Vehicle;
+import com.escuelita.demo.entities.projections.VehicleProjection;
 import com.escuelita.demo.repositories.IVehicleRepository;
+import com.escuelita.demo.services.interfaces.IBrandService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +16,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired
     IVehicleRepository repository;
+
+    @Autowired
+    IBrandService brandService;
 
     //CREATE
     @Override
@@ -70,7 +79,11 @@ public class VehicleServiceImpl implements IVehicleService {
     @Override
     public void deleteCar(Long id){repository.deleteById(id);}
 
-
+    @Override
+    public List<CreateVehicleResponse> listAllVehiclesByBrandId(Long brandId) {
+        List<VehicleProjection> vehiclesRepository = repository.listAllVehiclesByBrandId(brandId);
+        return vehiclesRepository.stream().map(this::from).collect(Collectors.toList());
+    }
 
 
     //FUNTIONS
@@ -82,6 +95,9 @@ public class VehicleServiceImpl implements IVehicleService {
         newVehicle.setMileage(carRequest.getMileage());
         newVehicle.setColor(carRequest.getColor());
         newVehicle.setModel(carRequest.getModel());
+
+        Brand brand = brandService.findBrandById(carRequest.getBrandId());
+        newVehicle.setBrand(brand);
         return newVehicle;
     }
     private CreateVehicleResponse carToCarReponse (Vehicle vehicleToBS){
@@ -92,8 +108,18 @@ public class VehicleServiceImpl implements IVehicleService {
         carResponse.setMileage(vehicleToBS.getMileage());
         carResponse.setColor(vehicleToBS.getColor());
         carResponse.setModel(vehicleToBS.getModel());
+
+
+        carResponse.setBrand(from(vehicleToBS.getBrand()));
         return carResponse;
     }
+
+    private BrandResponse from ( Brand brand) {
+        BrandResponse response = new BrandResponse();
+        response.setName(brand.getName());
+        return response;
+    }
+
     private CreateUpdateVehicleResponse carToUpdateCar (Vehicle newVehicle){
         CreateUpdateVehicleResponse updateCar = new CreateUpdateVehicleResponse();
         updateCar.setYear(newVehicle.getYear());
@@ -104,4 +130,18 @@ public class VehicleServiceImpl implements IVehicleService {
         return updateCar;
     }
 
+    private CreateVehicleResponse from (VehicleProjection request) {
+        CreateVehicleResponse response = new CreateVehicleResponse();
+        response.setId(request.getId());
+        response.setYear(request.getYear());
+        response.setPrice(request.getPrice());
+        response.setMileage(request.getMileage());
+        response.setColor(request.getColor());
+        response.setModel(request.getModel());
+
+        Brand brand = brandService.findBrandById(request.getBrand_Id());
+
+        response.setBrand(from(brand));
+        return response;
+    }
 }

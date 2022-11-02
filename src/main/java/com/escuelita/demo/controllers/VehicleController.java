@@ -32,6 +32,11 @@ public class VehicleController {
         return service.seeCars();
     }
 
+    @GetMapping("brand/{brandId}")
+    List<CreateVehicleResponse> listAllVehiclesByBrandId(@PathVariable Long brandId) {
+        return service.listAllVehiclesByBrandId(brandId);
+    }
+
     //UPDATE
     @PutMapping("{id}")
     CreateUpdateVehicleResponse updateCar(@PathVariable Long id, @RequestBody CreateVehicleRequest carRequest){
@@ -43,4 +48,6 @@ public class VehicleController {
     void deleteCar(@PathVariable Long id){
         service.deleteCar(id);
     }
+
+
 }
