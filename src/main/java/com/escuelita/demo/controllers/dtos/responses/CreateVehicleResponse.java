@@ -21,5 +21,5 @@ public class CreateVehicleResponse {
 
     private String model;
 
-    private Brand brand;
+    private BrandResponse brand;
 }

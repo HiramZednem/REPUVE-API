@@ -1,6 +1,7 @@
 package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
+import com.escuelita.demo.controllers.dtos.responses.BrandResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
 import com.escuelita.demo.entities.Brand;
@@ -100,9 +101,18 @@ public class VehicleServiceImpl implements IVehicleService {
         carResponse.setMileage(vehicleToBS.getMileage());
         carResponse.setColor(vehicleToBS.getColor());
         carResponse.setModel(vehicleToBS.getModel());
-        carResponse.setBrand(vehicleToBS.getBrand());
+
+
+        carResponse.setBrand(from(vehicleToBS.getBrand()));
         return carResponse;
     }
+
+    private BrandResponse from ( Brand brand) {
+        BrandResponse response = new BrandResponse();
+        response.setName(brand.getName());
+        return response;
+    }
+
     private CreateUpdateVehicleResponse carToUpdateCar (Vehicle newVehicle){
         CreateUpdateVehicleResponse updateCar = new CreateUpdateVehicleResponse();
         updateCar.setYear(newVehicle.getYear());
