@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,4 +36,7 @@ public class Owner {
 
     @Column(nullable = false)
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Vehicle> vehicles;
 }

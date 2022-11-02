@@ -15,13 +15,13 @@ public class Vehicle {
     private Long id;
 
     @Column(nullable = false)
-    private int year;
+    private Integer year;
 
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @Column(nullable = false)
-    private double mileage;
+    private Double mileage;
 
     @Column(nullable = false)
     private String color;
@@ -31,5 +31,13 @@ public class Vehicle {
 
     @ManyToOne
     private Brand brand;
+
+    @ManyToOne
+    private Owner owner;
+
+    @OneToOne
+
+    @JoinColumn(name = "engine_id", referencedColumnName = "id")
+    private Engine engine;
 
 }

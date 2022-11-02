@@ -1,16 +1,18 @@
 package com.escuelita.demo.controllers;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("Vehicles")
+@RequestMapping("vehicle")
 public class VehicleController {
 
     @Autowired
@@ -32,10 +34,28 @@ public class VehicleController {
         return service.seeCars();
     }
 
+
+    @GetMapping("vehicles/own/{ownerId}")
+    public ResponseEntity< BaseResponse> listAllVehiclesByOwnerId(@PathVariable Long ownerId){
+       BaseResponse baseResponse= service.listAllVehiclesByOwnerId(ownerId);
+       return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+
+
+    @GetMapping("/vehicles/engine/{engineId}")
+    public ResponseEntity< BaseResponse> listAllVehiclesByEngineId(@PathVariable Long engineId) {
+        BaseResponse baseResponse = service.listAllVehiclesByEngineId(engineId);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+
+
     @GetMapping("brand/{brandId}")
     List<CreateVehicleResponse> listAllVehiclesByBrandId(@PathVariable Long brandId) {
         return service.listAllVehiclesByBrandId(brandId);
     }
+
 
     //UPDATE
     @PutMapping("{id}")

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,6 +60,11 @@ public class EngineServiceImpl implements IEngineService{
         engine.setCylinder(request.getCylinder());
         engine.setEngineType(request.getEngineType());
         return engine;
+    }
+
+    @Override
+    public Engine findById(Long engineId) {
+        return repository.findById(engineId).orElseThrow(()->new RuntimeException("engine do not exist"));
     }
 
     private GetEngineResponse from(Engine engine){

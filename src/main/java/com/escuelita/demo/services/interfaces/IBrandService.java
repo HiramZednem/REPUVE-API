@@ -18,6 +18,7 @@ public interface IBrandService {
     //Update
     CreateBrandResponse update (Long id, UpdateBrandRequest request);
 
+
     //Delete
     void delete (Long id);
 

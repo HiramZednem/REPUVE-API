@@ -75,6 +75,8 @@ public class BrandServiceImpl implements IBrandService {
         repository.deleteById(id);
     }
 
+
+
     private Brand requestToBrand(CreateBrandRequest request) {
         Brand response = new Brand();
         response.setName(request.getName());
