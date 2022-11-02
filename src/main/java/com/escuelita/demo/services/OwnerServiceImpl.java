@@ -4,7 +4,9 @@ import com.escuelita.demo.controllers.dtos.requests.CreateOwnerRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateOwnerRequest;
 import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.GetOwnerResponse;
+import com.escuelita.demo.controllers.dtos.responses.OwnerResponse;
 import com.escuelita.demo.entities.Owner;
+import com.escuelita.demo.entities.projections.OwnerProjection;
 import com.escuelita.demo.repositories.IOwnerRepository;
 import com.escuelita.demo.services.interfaces.IOwnerService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
@@ -79,6 +81,30 @@ public class OwnerServiceImpl implements IOwnerService {
     repository.deleteById(id);
     }
 
+    @Override
+    public BaseResponse listAllOwnersByInsurance(long id) {
+        List<OwnerProjection> owners = repository.listAllOwnersByInsurance(id);
+        List<OwnerResponse> responses = owners.stream().map(this::from).collect(Collectors.toList());
+
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Owners list by insurance id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    private OwnerResponse from(OwnerProjection projection){
+        OwnerResponse response = new OwnerResponse();
+        response.setId(projection.getId());
+        response.setRfc(projection.getRfc());
+        response.setFirstName(projection.getFirstName());
+        response.setLastName(projection.getLastName());
+        response.setCountry(projection.getCountry());
+        response.setCity(projection.getCity());
+        response.setAddress(projection.getAddress());
+
+        return response;
+    }
     private Owner update(Owner owner, UpdateOwnerRequest request){
         owner.setFirstName(request.getFirstName());
         owner.setLastName(request.getLastName());

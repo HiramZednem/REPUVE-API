@@ -2,13 +2,16 @@ package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateInsuranceRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateInsuranceRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
+import com.escuelita.demo.controllers.dtos.responses.GetInsuranceResponse;
 import com.escuelita.demo.controllers.responses.CreateInsuranceResponse;
-import com.escuelita.demo.controllers.responses.GetInsuranceResponse;
 import com.escuelita.demo.controllers.responses.UpdateInsuranceResponse;
 import com.escuelita.demo.entities.Insurance;
 import com.escuelita.demo.repositories.IInsuranceRepository;
 import com.escuelita.demo.services.interfaces.IInsuranceService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,29 +22,49 @@ public class InsuranceServiceImpl implements IInsuranceService {
     @Autowired
     private IInsuranceRepository repository;
     @Override
-    public CreateInsuranceResponse create(CreateInsuranceRequest request) {
-        Insurance save = repository.save(from(request));
-        return from(save);
+    public BaseResponse create(CreateInsuranceRequest request) {
+        CreateInsuranceResponse response = from(repository.save(from(request)));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Insurance created")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
-    public GetInsuranceResponse get(Long id) {
+    public BaseResponse get(Long id) {
+        Insurance response = findAndEnsureExist(id);
+        return BaseResponse.builder()
+                .data(response)
+                .message("Get Insurance by Id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public BaseResponse list() {
+        List<GetInsuranceResponse> response=repository.findAll()
+                .stream()
+                .map(this::toGetInsuranceResponse)
+                .collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("Insurances List by owner id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public BaseResponse update(Long id, UpdateInsuranceRequest request) {
         Insurance insurance = findAndEnsureExist(id);
-        return toGetInsuranceResponse(insurance);
-    }
+        insurance = update(insurance, request);
+        UpdateInsuranceResponse  response = toUpdateInsuranceResponse(insurance);
 
-    @Override
-    public List<GetInsuranceResponse> list() {
-        return repository.findAll().stream().map(this::toGetInsuranceResponse).collect(Collectors.toList());
-    }
-
-    @Override
-    public UpdateInsuranceResponse update(Long id, UpdateInsuranceRequest request) {
-        Insurance insurance = findAndEnsureExist(id);
-        insurance.setName(request.getName());
-        insurance.setHeadquarter(request.getHeadquarter());
-        insurance.setWebsite(request.getWebsite());
-        return toUpdateInsuranceResponse(repository.save(insurance));
+        return BaseResponse.builder()
+                .data(response)
+                .message("Insurances Updated")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
@@ -49,6 +72,16 @@ public class InsuranceServiceImpl implements IInsuranceService {
         repository.delete(findAndEnsureExist(id));
     }
 
+    @Override
+    public Insurance findById(Long id) {
+        return repository.findById(id).orElseThrow(()-> new RuntimeException("Not Found"));
+    }
+    private Insurance update(Insurance insurance, UpdateInsuranceRequest request){
+        insurance.setName(request.getName());
+        insurance.setHeadquarter(request.getHeadquarter());
+        insurance.setWebsite(request.getWebsite());
+        return repository.save(insurance);
+    }
     private UpdateInsuranceResponse toUpdateInsuranceResponse(Insurance insurance){
         UpdateInsuranceResponse response = new UpdateInsuranceResponse();
         response.setId(insurance.getId());
@@ -83,4 +116,5 @@ public class InsuranceServiceImpl implements IInsuranceService {
     private Insurance findAndEnsureExist(Long id){
         return repository.findById(id).orElseThrow(()-> new RuntimeException("Not Found"));
     }
+
 }

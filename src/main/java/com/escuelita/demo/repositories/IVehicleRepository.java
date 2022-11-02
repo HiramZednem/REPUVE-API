@@ -14,10 +14,21 @@ import java.util.List;
 
 @Repository
 public interface IVehicleRepository extends JpaRepository<Vehicle, Long> {
+
     @Query(value = "select v.id,v.color,v.mileage, v.model ,v.year, v.price,v.owner_id as ownerId ,o.first_name, o.last_name from vehicles v " +
             "inner join owners o on v.owner_id = o.id " +
             "where v.owner_id = :ownerId", nativeQuery = true)
     List<VehicleOwnerProjection> listAllVehiclesByOwnerId(Long ownerId);
+
+/* ME ENCONTRE DOS METODOS CON EL MISMO NOMBRE, LO VOY A DEJAR COMENTADO
+
+    @Query(value = "select vehicles.*, owner.first_name + owner.last_name as ownerName " +
+            "inner join owners owner on owner.id = vehicles.owner_id " +
+            "where owner.id = vehicles.owner_id", nativeQuery = true)
+    List<VehicleProjection> listAllVehiclesByOwnerId(Long ownerId);
+
+ */
+
 
 
     @Query(value = "select v.id,v.color,v.mileage, v.model ,v.year, v.price, v.engine_id as engineId ,e.engine_type as engineType from vehicles v " +

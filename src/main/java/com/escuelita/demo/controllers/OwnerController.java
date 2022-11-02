@@ -23,6 +23,12 @@ public class OwnerController {
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
+    @GetMapping("/owners/insurance/{id}")
+    public ResponseEntity<BaseResponse> listAllOwnersByInsuranceId(@PathVariable Long id){
+        BaseResponse baseResponse = service.listAllOwnersByInsurance(id);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<BaseResponse>  get(@PathVariable Long id){
         BaseResponse baseResponse =  service.get(id);
@@ -42,7 +48,7 @@ public class OwnerController {
     }
 
     @DeleteMapping("{id}")
-    public void delete(Long id){
+    public void delete(@PathVariable Long id){
         service.delete(id);
     }
 }
