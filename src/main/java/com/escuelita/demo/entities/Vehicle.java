@@ -30,6 +30,9 @@ public class Vehicle {
     private String model;
 
     @ManyToOne
+    private Brand brand;
+
+    @ManyToOne
     private Owner owner;
 
     @OneToOne

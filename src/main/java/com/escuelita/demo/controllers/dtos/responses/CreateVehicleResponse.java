@@ -1,7 +1,10 @@
 package com.escuelita.demo.controllers.dtos.responses;
 
+import com.escuelita.demo.entities.Brand;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.management.relation.Role;
 
 @Getter  @Setter
 public class CreateVehicleResponse {
@@ -18,5 +21,8 @@ public class CreateVehicleResponse {
 
     private String model;
 
-     private OwnerResponse ownerName;
+    private OwnerResponse ownerName;
+
+    private BrandResponse brand;
+
 }

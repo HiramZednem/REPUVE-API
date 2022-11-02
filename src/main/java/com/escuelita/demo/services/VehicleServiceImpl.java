@@ -1,14 +1,18 @@
 package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
+
 import com.escuelita.demo.controllers.dtos.responses.*;
 import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.entities.Vehicle;
 import com.escuelita.demo.entities.projections.VehicleEngineProjection;
 import com.escuelita.demo.entities.projections.VehicleOwnerProjection;
+import com.escuelita.demo.entities.Brand;
+import com.escuelita.demo.entities.projections.VehicleProjection;
 import com.escuelita.demo.repositories.IVehicleRepository;
 import com.escuelita.demo.services.interfaces.IEngineService;
 import com.escuelita.demo.services.interfaces.IOwnerService;
+import com.escuelita.demo.services.interfaces.IBrandService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +31,13 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired
     IOwnerService ownerService;
-
+    
+    @Autowired
+    IBrandService brandService;
+    
     @Autowired
     IEngineService engineService;
+
 
     //CREATE
     @Override
@@ -96,7 +104,15 @@ public class VehicleServiceImpl implements IVehicleService {
                 .message("vehicle list by owner id")
                 .success(Boolean.TRUE)
                 .httpStatus(HttpStatus.OK).build();
-    }
+       }
+
+
+    @Override
+    public List<CreateVehicleResponse> listAllVehiclesByBrandId(Long brandId) {
+        List<VehicleProjection> vehiclesRepository = repository.listAllVehiclesByBrandId(brandId);
+        return vehiclesRepository.stream().map(this::from).collect(Collectors.toList());
+
+    
 
     @Override
     public BaseResponse listAllVehiclesByEngineId(Long engineId) {
@@ -121,6 +137,9 @@ public class VehicleServiceImpl implements IVehicleService {
         newVehicle.setMileage(carRequest.getMileage());
         newVehicle.setColor(carRequest.getColor());
         newVehicle.setModel(carRequest.getModel());
+
+        Brand brand = brandService.findBrandById(carRequest.getBrandId());
+        newVehicle.setBrand(brand);
         return newVehicle;
     }
     private CreateVehicleResponse carToCarReponse (Vehicle vehicleToBS){
@@ -131,7 +150,8 @@ public class VehicleServiceImpl implements IVehicleService {
         carResponse.setMileage(vehicleToBS.getMileage());
         carResponse.setColor(vehicleToBS.getColor());
         carResponse.setModel(vehicleToBS.getModel());
-//        carResponse.setOwnerName(from(vehicleToBS.getOwner()));
+        carResponse.setBrand(from(vehicleToBS.getBrand()));
+        //        carResponse.setOwnerName(from(vehicleToBS.getOwner()));
         return carResponse;
     }
 
@@ -141,7 +161,11 @@ public class VehicleServiceImpl implements IVehicleService {
         return ownerResponse;
     }
 
-
+    private BrandResponse from ( Brand brand) {
+        BrandResponse response = new BrandResponse();
+        response.setName(brand.getName());
+        return response;
+    }
 
 
     private CreateUpdateVehicleResponse carToUpdateCar (Vehicle newVehicle){
@@ -166,6 +190,7 @@ public class VehicleServiceImpl implements IVehicleService {
         return response;
     }
 
+
     private VehicleEngineResponse from(VehicleEngineProjection projection){
         VehicleEngineResponse response = new VehicleEngineResponse();
         response.setId(projection.getId());
@@ -175,6 +200,21 @@ public class VehicleServiceImpl implements IVehicleService {
         response.setModel(projection.getModel());
         response.setEngineId(projection.getEngineId());
         response.setEngineType(projection.getEngineType());
-        return response;
+         return response;
     }
+
+    private CreateVehicleResponse from (VehicleProjection request) {
+        CreateVehicleResponse response = new CreateVehicleResponse();
+        response.setId(request.getId());
+        response.setYear(request.getYear());
+        response.setPrice(request.getPrice());
+        response.setMileage(request.getMileage());
+        response.setColor(request.getColor());
+        response.setModel(request.getModel());
+
+        Brand brand = brandService.findBrandById(request.getBrand_Id());
+
+        response.setBrand(from(brand));
+         return response;
+    }     
 }

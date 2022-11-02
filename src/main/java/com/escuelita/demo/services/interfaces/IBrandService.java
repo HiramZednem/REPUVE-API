@@ -22,4 +22,6 @@ public interface IBrandService {
     //Delete
     void delete (Long id);
 
+    Brand findBrandById (Long id);
+
 }

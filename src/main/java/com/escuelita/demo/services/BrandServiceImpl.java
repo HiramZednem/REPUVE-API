@@ -46,6 +46,15 @@ public class BrandServiceImpl implements IBrandService {
         return responses;
     }
 
+    public Brand findBrandById ( Long id ) {
+        Optional<Brand> brandFromDB = repository.findById(id);
+        if (brandFromDB.isPresent()) {
+            return brandFromDB.get();
+        }
+        throw new RuntimeException("The Brand with the id: " + id + " doesn't exist");
+
+    }
+
     @Override
     public CreateBrandResponse update(Long id, UpdateBrandRequest request) {
         Optional<Brand> brandOptional = repository.findById(id);

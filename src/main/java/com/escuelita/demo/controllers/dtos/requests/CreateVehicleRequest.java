@@ -17,5 +17,8 @@ public class CreateVehicleRequest {
     private String model;
 
     // not use this variable when creating a new vehicle
-    private Long ownerId;
+    private Long ownerId; //ESTA PARTE ES DE HUERTA, ESTOY HACIENDO EL MERGE Y CREO QUE NO LA HA TERMINADO 
+
+    private Long brandId;
+
 }

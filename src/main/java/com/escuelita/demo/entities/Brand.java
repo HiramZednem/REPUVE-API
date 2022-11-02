@@ -23,4 +23,8 @@ public class Brand {
     @Column(nullable = false)
     String website;
 
+
+    @OneToMany(mappedBy = "brand")
+    private List<Vehicle> vehicles;
+
 }

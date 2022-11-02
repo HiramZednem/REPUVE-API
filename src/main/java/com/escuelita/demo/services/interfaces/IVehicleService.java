@@ -23,4 +23,6 @@ public interface IVehicleService {
     BaseResponse listAllVehiclesByOwnerId(Long ownerId);
 
     BaseResponse listAllVehiclesByEngineId(Long engineId);
+
+    List<CreateVehicleResponse>listAllVehiclesByBrandId (Long id);
 }
