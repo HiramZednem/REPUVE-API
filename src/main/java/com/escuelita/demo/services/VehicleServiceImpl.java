@@ -111,6 +111,7 @@ public class VehicleServiceImpl implements IVehicleService {
     public List<CreateVehicleResponse> listAllVehiclesByBrandId(Long brandId) {
         List<VehicleProjection> vehiclesRepository = repository.listAllVehiclesByBrandId(brandId);
         return vehiclesRepository.stream().map(this::from).collect(Collectors.toList());
+    }
 
     
 
