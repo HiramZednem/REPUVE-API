@@ -32,4 +32,9 @@ public class Vehicle {
     @ManyToOne
     private Owner owner;
 
+    @OneToOne
+
+    @JoinColumn(name = "engine_id", referencedColumnName = "id")
+    private Engine engine;
+
 }

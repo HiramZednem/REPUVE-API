@@ -4,8 +4,10 @@ import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
 import com.escuelita.demo.controllers.dtos.responses.*;
 import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.entities.Vehicle;
-import com.escuelita.demo.entities.projections.VehicleProjection;
+import com.escuelita.demo.entities.projections.VehicleEngineProjection;
+import com.escuelita.demo.entities.projections.VehicleOwnerProjection;
 import com.escuelita.demo.repositories.IVehicleRepository;
+import com.escuelita.demo.services.interfaces.IEngineService;
 import com.escuelita.demo.services.interfaces.IOwnerService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired
     IOwnerService ownerService;
+
+    @Autowired
+    IEngineService engineService;
 
     //CREATE
     @Override
@@ -81,8 +86,8 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Override
     public BaseResponse listAllVehiclesByOwnerId(Long ownerId) {
-        List<VehicleProjection> vehicles = repository.listAllVehiclesByOwnerId(ownerId);
-       List<VehicleResponse> response = vehicles.stream()
+        List<VehicleOwnerProjection> vehicles = repository.listAllVehiclesByOwnerId(ownerId);
+       List<VehicleOwnerResponse> response = vehicles.stream()
                .map(this::from)
                .collect(Collectors.toList());
 
@@ -93,6 +98,19 @@ public class VehicleServiceImpl implements IVehicleService {
                 .httpStatus(HttpStatus.OK).build();
     }
 
+    @Override
+    public BaseResponse listAllVehiclesByEngineId(Long engineId) {
+        List<VehicleEngineProjection> vehicles = repository.ListAllVehiclesByEngineId(engineId);
+        List<VehicleEngineResponse> response = vehicles.stream()
+                .map(this::from)
+                .collect(Collectors.toList());
+
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list by engine id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
 
     //FUNTIONS
     //CREATEEEE
@@ -136,8 +154,8 @@ public class VehicleServiceImpl implements IVehicleService {
         updateCar.setOwner(from(newVehicle.getOwner()));
         return updateCar;
     }
-    private VehicleResponse from(VehicleProjection projection){
-        VehicleResponse response = new VehicleResponse();
+    private VehicleOwnerResponse from(VehicleOwnerProjection projection){
+        VehicleOwnerResponse response = new VehicleOwnerResponse();
         response.setId(projection.getId());
         response.setColor(projection.getColor());
         response.setMileage(projection.getMileage());
@@ -148,4 +166,15 @@ public class VehicleServiceImpl implements IVehicleService {
         return response;
     }
 
+    private VehicleEngineResponse from(VehicleEngineProjection projection){
+        VehicleEngineResponse response = new VehicleEngineResponse();
+        response.setId(projection.getId());
+        response.setColor(projection.getColor());
+        response.setMileage(projection.getMileage());
+        response.setYear(projection.getYear());
+        response.setModel(projection.getModel());
+        response.setEngineId(projection.getEngineId());
+        response.setEngineType(projection.getEngineType());
+        return response;
+    }
 }

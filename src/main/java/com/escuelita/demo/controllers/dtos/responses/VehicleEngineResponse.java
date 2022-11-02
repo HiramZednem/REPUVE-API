@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class VehicleResponse {
+public class VehicleEngineResponse {
     private Long Id;
     private String color;
     private Double mileage;
-    private Integer year;
     private String model;
-    private String ownerName;
+    private Double price;
+    private Integer year;
+    private Long engineId;
+    private String engineType;
 }

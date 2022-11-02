@@ -1,10 +1,9 @@
 package com.escuelita.demo.entities.projections;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
-public class VehicleProjection {
+@Getter
+public class VehicleOwnerProjection {
 
     private Long Id;
     private String color;

@@ -20,4 +20,7 @@ public class Engine {
     @Column(nullable = false)
     private String engineType;
 
+    @OneToOne(mappedBy = "engine")
+    private Vehicle vehicle;
+
 }

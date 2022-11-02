@@ -41,6 +41,14 @@ public class VehicleController {
     }
 
 
+
+    @GetMapping("/vehicles/engine/{engineId}")
+    public ResponseEntity< BaseResponse> listAllVehiclesByEngineId(@PathVariable Long engineId) {
+        BaseResponse baseResponse = service.listAllVehiclesByEngineId(engineId);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
+
+
     //UPDATE
     @PutMapping("{id}")
     CreateUpdateVehicleResponse updateCar(@PathVariable Long id, @RequestBody CreateVehicleRequest carRequest){
