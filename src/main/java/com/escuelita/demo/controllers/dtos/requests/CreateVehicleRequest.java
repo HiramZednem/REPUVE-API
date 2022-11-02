@@ -15,4 +15,6 @@ public class CreateVehicleRequest {
     private String color;
 
     private String model;
+
+    private Long brandId;
 }

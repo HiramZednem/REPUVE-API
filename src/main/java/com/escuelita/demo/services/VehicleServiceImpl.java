@@ -3,8 +3,10 @@ package com.escuelita.demo.services;
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
 import com.escuelita.demo.controllers.dtos.responses.CreateVehicleResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateUpdateVehicleResponse;
+import com.escuelita.demo.entities.Brand;
 import com.escuelita.demo.entities.Vehicle;
 import com.escuelita.demo.repositories.IVehicleRepository;
+import com.escuelita.demo.services.interfaces.IBrandService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired
     IVehicleRepository repository;
+
+    @Autowired
+    IBrandService brandService;
 
     //CREATE
     @Override
@@ -82,6 +87,9 @@ public class VehicleServiceImpl implements IVehicleService {
         newVehicle.setMileage(carRequest.getMileage());
         newVehicle.setColor(carRequest.getColor());
         newVehicle.setModel(carRequest.getModel());
+
+        Brand brand = brandService.findBrandById(carRequest.getBrandId());
+        newVehicle.setBrand(brand);
         return newVehicle;
     }
     private CreateVehicleResponse carToCarReponse (Vehicle vehicleToBS){
@@ -92,6 +100,7 @@ public class VehicleServiceImpl implements IVehicleService {
         carResponse.setMileage(vehicleToBS.getMileage());
         carResponse.setColor(vehicleToBS.getColor());
         carResponse.setModel(vehicleToBS.getModel());
+        carResponse.setBrand(vehicleToBS.getBrand());
         return carResponse;
     }
     private CreateUpdateVehicleResponse carToUpdateCar (Vehicle newVehicle){
