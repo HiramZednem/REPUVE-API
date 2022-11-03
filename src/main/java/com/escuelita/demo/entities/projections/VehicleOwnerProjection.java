@@ -1,19 +1,18 @@
 package com.escuelita.demo.entities.projections;
 
-import lombok.Getter;
 
-@Getter
-public class VehicleOwnerProjection {
 
-    private Long Id;
-    private String color;
-    private Double mileage;
-    private String model;
-    private Double price;
-    private Integer year;
-    private Long ownerId;
+public interface VehicleOwnerProjection {
 
-    private String firstName;
-    private String lastName;
+    Long getId();
+    String getColor();
+    Double getMileage();
+    String getModel();
+    Double getPrice();
+    Integer getYear();
+    Long getOwnerId();
+
+    String getFirstName();
+    String getLastName();
 
 }

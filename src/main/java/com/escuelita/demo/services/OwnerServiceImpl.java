@@ -9,7 +9,6 @@ import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.entities.projections.OwnerProjection;
 import com.escuelita.demo.repositories.IOwnerRepository;
 import com.escuelita.demo.services.interfaces.IOwnerService;
-import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

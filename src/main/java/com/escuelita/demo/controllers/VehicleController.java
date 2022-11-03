@@ -35,7 +35,7 @@ public class VehicleController {
     }
 
 
-    @GetMapping("vehicles/own/{ownerId}")
+    @GetMapping("own/{ownerId}")
     public ResponseEntity< BaseResponse> listAllVehiclesByOwnerId(@PathVariable Long ownerId){
        BaseResponse baseResponse= service.listAllVehiclesByOwnerId(ownerId);
        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
@@ -43,7 +43,7 @@ public class VehicleController {
 
 
 
-    @GetMapping("/vehicles/engine/{engineId}")
+    @GetMapping("engine/{engineId}")
     public ResponseEntity< BaseResponse> listAllVehiclesByEngineId(@PathVariable Long engineId) {
         BaseResponse baseResponse = service.listAllVehiclesByEngineId(engineId);
         return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());

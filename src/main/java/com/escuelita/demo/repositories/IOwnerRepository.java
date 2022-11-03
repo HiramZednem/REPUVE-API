@@ -13,6 +13,6 @@ public interface IOwnerRepository extends JpaRepository<Owner, Long> {
 
     @Query(value = "select owners.*, insurance.name from owners"+
     " inner join insurances insurance on inusrance.id = owner.id"+
-    " where insurance.id = owners.insurance_id", nativeQuery = true)
+    " where insurance.id = :id", nativeQuery = true)
     List<OwnerProjection> listAllOwnersByInsurance(Long id);
 }

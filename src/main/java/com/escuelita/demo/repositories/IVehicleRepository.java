@@ -2,6 +2,7 @@ package com.escuelita.demo.repositories;
 
 import com.escuelita.demo.entities.Vehicle;
 
+
 import com.escuelita.demo.entities.projections.VehicleEngineProjection;
 import com.escuelita.demo.entities.projections.VehicleOwnerProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
