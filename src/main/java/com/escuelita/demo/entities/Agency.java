@@ -1,13 +1,15 @@
 package com.escuelita.demo.entities;
 
+import com.escuelita.demo.entities.pivots.AgencyVehicle;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter @Setter
-@Table(name = "Agencies")
+@Table(name = "agencies")
 public class Agency {
 
     @Id
@@ -22,4 +24,7 @@ public class Agency {
 
     @Column(nullable = false)
     private Long cellphone_number;
+
+    @OneToMany(mappedBy="agency")
+    private List<AgencyVehicle>agencyVehicles;
 }

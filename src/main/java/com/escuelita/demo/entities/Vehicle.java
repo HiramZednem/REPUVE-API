@@ -1,9 +1,11 @@
 package com.escuelita.demo.entities;
 
+import com.escuelita.demo.entities.pivots.AgencyVehicle;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter @Getter
@@ -36,8 +38,11 @@ public class Vehicle {
     private Owner owner;
 
     @OneToOne
-
     @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;
+
+    @OneToMany(mappedBy="vehicle")
+    private List<AgencyVehicle> agencyVehicles;
+
 
 }
