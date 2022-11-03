@@ -81,7 +81,7 @@ public class OwnerServiceImpl implements IOwnerService {
     }
 
     @Override
-    public BaseResponse listAllOwnersByInsurance(long id) {
+    public BaseResponse listAllOwnersByInsurance(Long id) {
         List<OwnerProjection> owners = repository.listAllOwnersByInsurance(id);
         List<OwnerResponse> responses = owners.stream().map(this::from).collect(Collectors.toList());
 
@@ -95,6 +95,7 @@ public class OwnerServiceImpl implements IOwnerService {
     private OwnerResponse from(OwnerProjection projection){
         OwnerResponse response = new OwnerResponse();
         response.setId(projection.getId());
+        response.setName(projection.getFirstName()+projection.getLastName());
         response.setRfc(projection.getRfc());
         response.setFirstName(projection.getFirstName());
         response.setLastName(projection.getLastName());

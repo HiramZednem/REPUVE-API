@@ -64,7 +64,7 @@ public class EngineServiceImpl implements IEngineService{
 
     @Override
     public Engine findById(Long engineId) {
-        return repository.findById(engineId).orElseThrow(()->new RuntimeException("engine do not exist"));
+        return repository.findById(engineId).orElseThrow(()-> new RuntimeException("engine do not exist"));
     }
 
     private GetEngineResponse from(Engine engine){

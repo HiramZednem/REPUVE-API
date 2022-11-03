@@ -3,21 +3,23 @@ package com.escuelita.demo.entities.projections;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-public class OwnerProjection {
-    private Long id;
 
-    private String rfc;
+public interface OwnerProjection {
+   Long getId();
 
-    private String firstName;
+    String getRfc();
 
-    private String lastName;
+    String getFirstName();
 
-    private String country;
+    String getLastName();
 
-    private String city;
+    String getCountry();
 
-    private String address;
+    String getCity();
 
-    private String phoneNumber;
+    String getAddress();
+
+    String getPhoneNumber();
+
+    String getInsuranceName();
 }

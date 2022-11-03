@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface IOwnerRepository extends JpaRepository<Owner, Long> {
 
-    @Query(value = "select owners.*, insurance.name from owners"+
-    " inner join insurances insurance on inusrance.id = owner.id"+
+    @Query(value = "select owners.*, insurance.name as insuranceName from owners"+
+    " inner join insurances insurance on owners.insurance_id = insurance.id"+
     " where insurance.id = :id", nativeQuery = true)
     List<OwnerProjection> listAllOwnersByInsurance(Long id);
 }

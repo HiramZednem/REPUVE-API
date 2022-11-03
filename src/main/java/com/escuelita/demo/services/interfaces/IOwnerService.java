@@ -26,7 +26,7 @@ public interface IOwnerService {
 
     Owner findById(Long ownerId);
 
-    BaseResponse listAllOwnersByInsurance(long id);
+    BaseResponse listAllOwnersByInsurance(Long id);
 
 
 }
