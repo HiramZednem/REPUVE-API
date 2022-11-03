@@ -34,7 +34,7 @@ public interface IVehicleRepository extends JpaRepository<Vehicle, Long> {
 
     @Query(value = "select v.id,v.color,v.mileage, v.model ,v.year, v.price, v.engine_id as engineId ,e.engine_type as engineType from vehicles v " +
             "inner join  engines e on v.engine_id = e.id " +
-            "where v.engine_id = :engineId;", nativeQuery = true)
+            "where v.engine_id = :engineId", nativeQuery = true)
     List<VehicleEngineProjection> ListAllVehiclesByEngineId(Long engineId);
 
 

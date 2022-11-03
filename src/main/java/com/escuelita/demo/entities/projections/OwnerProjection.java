@@ -5,7 +5,7 @@ import lombok.Setter;
 
 
 public interface OwnerProjection {
-   Long getId();
+    Long getId();
 
     String getRfc();
 

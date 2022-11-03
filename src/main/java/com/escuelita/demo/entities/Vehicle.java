@@ -38,7 +38,7 @@ public class Vehicle {
     private Owner owner;
 
     @OneToOne
-    @JoinColumn(name = "engine_id", referencedColumnName = "id")
+    @JoinColumn(name = "engine_Id", referencedColumnName = "id")
     private Engine engine;
 
     @OneToMany(mappedBy="vehicle")
