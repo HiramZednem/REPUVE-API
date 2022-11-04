@@ -67,6 +67,11 @@ public class ProsecutorsOfficeServiceImpl implements IProsecutorsOfficeService {
     }
 
     @Override
+    public ProsecutorsOffice getById(Long id) {
+        return repository.findById(id).orElseThrow(()->new RuntimeException("Office do not exist"));
+    }
+
+    @Override
     public void delete(Long id) {
         repository.deleteById(id);
     }

@@ -16,4 +16,6 @@ public class UpdateUserRequest {
     private String password;
 
     private Long workerCode;
+
+    private Long officeId;
 }

@@ -6,8 +6,10 @@ import com.escuelita.demo.controllers.dtos.requests.UpdateProsecutorsOfficeReque
 import com.escuelita.demo.controllers.dtos.requests.UpdateUserRequest;
 import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.GetUserResponse;
+import com.escuelita.demo.entities.ProsecutorsOffice;
 import com.escuelita.demo.entities.User;
 import com.escuelita.demo.repositories.IUserRepository;
+import com.escuelita.demo.services.interfaces.IProsecutorsOfficeService;
 import com.escuelita.demo.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserRepository repository;
+    @Autowired
+    private ProsecutorsOfficeServiceImpl prosecutorsOfficeService;
 
 
     @Override
@@ -81,6 +85,9 @@ public class UserServiceImpl implements IUserService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setWorkerCode(request.getWorkerCode());
+        ProsecutorsOffice office = new ProsecutorsOffice();
+        office = prosecutorsOfficeService.getById(request.getOfficeId());
+        user.setProsecutorsOffices(office);
         return repository.save(user);
     }
 
@@ -91,6 +98,9 @@ public class UserServiceImpl implements IUserService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
         user.setWorkerCode(request.getWorkerCode());
+        ProsecutorsOffice office = new ProsecutorsOffice();
+        office = prosecutorsOfficeService.getById(request.getOfficeId());
+        user.setProsecutorsOffices(office);
         return user;
     }
     private GetUserResponse from(User user){

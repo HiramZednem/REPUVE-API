@@ -17,4 +17,6 @@ public class CreateUserRequest {
     private String password;
 
     private Long workerCode;
+
+    private Long officeId;
 }
