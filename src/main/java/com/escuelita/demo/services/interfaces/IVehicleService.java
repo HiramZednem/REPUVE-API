@@ -18,9 +18,5 @@ public interface IVehicleService {
     //DELETE
     void deleteCar(Long id);
 
-    BaseResponse listAllVehiclesByOwnerId(Long ownerId);
 
-    BaseResponse listAllVehiclesByEngineId(Long engineId);
-
-    List<CreateVehicleResponse>listAllVehiclesByBrandId (Long id);
 }

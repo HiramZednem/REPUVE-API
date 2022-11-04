@@ -4,14 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class CreateOwnerRequest {
-    private String rfc;
-    private String firstName;
-    private String lastName;
+public class UpdateProsecutorsOfficeRequest {
+    private String name;
     private String country;
+    private String state;
     private String city;
     private String address;
-    private String phoneNumber;
-
+    private String postalCode;
 }
-

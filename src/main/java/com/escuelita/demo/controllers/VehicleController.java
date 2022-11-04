@@ -34,29 +34,6 @@ public class VehicleController {
         return service.seeCars();
     }
 
-
-    @GetMapping("own/{ownerId}")
-    public ResponseEntity< BaseResponse> listAllVehiclesByOwnerId(@PathVariable Long ownerId){
-       BaseResponse baseResponse= service.listAllVehiclesByOwnerId(ownerId);
-       return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
-    }
-
-
-
-    @GetMapping("engine/{engineId}")
-    public ResponseEntity< BaseResponse> listAllVehiclesByEngineId(@PathVariable Long engineId) {
-        BaseResponse baseResponse = service.listAllVehiclesByEngineId(engineId);
-        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
-    }
-
-
-
-    @GetMapping("brand/{brandId}")
-    List<CreateVehicleResponse> listAllVehiclesByBrandId(@PathVariable Long brandId) {
-        return service.listAllVehiclesByBrandId(brandId);
-    }
-
-
     //UPDATE
     @PutMapping("{id}")
     CreateUpdateVehicleResponse updateCar(@PathVariable Long id, @RequestBody CreateVehicleRequest carRequest){

@@ -18,8 +18,5 @@ public class CreateVehicleResponse {
 
     private String model;
 
-    private OwnerResponse ownerName;
-
-    private BrandResponse brand;
 
 }

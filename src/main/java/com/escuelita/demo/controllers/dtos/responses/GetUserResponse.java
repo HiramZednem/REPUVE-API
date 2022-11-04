@@ -4,11 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class GetOwnerResponse {
+public class GetUserResponse {
     private Long id;
-    private String rfc;
+
     private String firstName;
+
     private String lastName;
-    private String country;
-    private String city;
+
+    private String email;
+
+    private String password;
+
+    private Long workerCode;
 }

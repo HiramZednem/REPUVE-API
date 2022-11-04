@@ -3,14 +3,18 @@ package com.escuelita.demo.controllers.dtos.requests;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
-public class UpdateOwnerRequest {
-    private String rfc;
-    private String firstName;
-    private String lastName;
-    private String country;
-    private String city;
-    private String address;
-    private String phoneNumber;
-}
+import javax.persistence.Column;
 
+@Getter @Setter
+public class CreateUserRequest {
+
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private String password;
+
+    private Long workerCode;
+}

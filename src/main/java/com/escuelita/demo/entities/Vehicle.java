@@ -20,26 +20,29 @@ public class Vehicle {
     private Integer year;
 
     @Column(nullable = false)
+    private String model;
+
+    @Column(nullable = false)
+    private String brand;
+
+    @Column(nullable = false)
+    private String color;
+
+    @Column(nullable = false)
     private Double price;
 
     @Column(nullable = false)
     private Double mileage;
 
     @Column(nullable = false)
-    private String color;
+    private String fuelType;
 
     @Column(nullable = false)
-    private String model;
+    private String serialNumber;
 
-    @ManyToOne
-    private Brand brand;
+    @Column(nullable = false)
+    private String plate;
 
-    @ManyToOne
-    private Owner owner;
-
-    @OneToOne
-    @JoinColumn(name = "engine_Id", referencedColumnName = "id")
-    private Engine engine;
 
     @OneToMany(mappedBy="vehicle")
     private List<AgencyVehicle> agencyVehicles;
