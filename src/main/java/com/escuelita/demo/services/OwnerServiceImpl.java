@@ -95,7 +95,7 @@ public class OwnerServiceImpl implements IOwnerService {
     private OwnerResponse from(OwnerProjection projection){
         OwnerResponse response = new OwnerResponse();
         response.setId(projection.getId());
-        response.setName(projection.getFirstName() + projection.getLastName());
+        response.setName(projection.getFirstName()+" "+ projection.getLastName());
         response.setRfc(projection.getRfc());
         response.setFirstName(projection.getFirstName());
         response.setLastName(projection.getLastName());
