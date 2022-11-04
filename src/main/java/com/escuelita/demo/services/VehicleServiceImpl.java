@@ -3,16 +3,11 @@ package com.escuelita.demo.services;
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
 
 import com.escuelita.demo.controllers.dtos.responses.*;
-import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.entities.Vehicle;
 import com.escuelita.demo.entities.projections.VehicleEngineProjection;
 import com.escuelita.demo.entities.projections.VehicleOwnerProjection;
-import com.escuelita.demo.entities.Brand;
 import com.escuelita.demo.entities.projections.VehicleProjection;
 import com.escuelita.demo.repositories.IVehicleRepository;
-import com.escuelita.demo.services.interfaces.IEngineService;
-import com.escuelita.demo.services.interfaces.IOwnerService;
-import com.escuelita.demo.services.interfaces.IBrandService;
 import com.escuelita.demo.services.interfaces.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

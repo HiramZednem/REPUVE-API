@@ -1,10 +1,7 @@
 package com.escuelita.demo.controllers.dtos.responses;
 
-import com.escuelita.demo.entities.Brand;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.management.relation.Role;
 
 @Getter  @Setter
 public class CreateVehicleResponse {

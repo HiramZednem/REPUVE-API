@@ -3,7 +3,6 @@ package com.escuelita.demo.controllers;
 import com.escuelita.demo.controllers.dtos.requests.CreateInsuranceRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateInsuranceRequest;
 import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
-import com.escuelita.demo.services.interfaces.IInsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
