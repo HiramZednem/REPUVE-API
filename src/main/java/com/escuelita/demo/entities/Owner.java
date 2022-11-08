@@ -2,13 +2,13 @@ package com.escuelita.demo.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @Table(name = "Owners")
 public class Owner {
 

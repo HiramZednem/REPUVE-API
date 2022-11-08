@@ -39,49 +39,64 @@ public class VehicleServiceImpl implements IVehicleService {
     IEngineService engineService;
 
 
-    //CREATE
     @Override
-    public CreateVehicleResponse createCar(CreateVehicleRequest carRequest){
+    public BaseResponse createCar(CreateVehicleRequest carRequest){
         Vehicle vehicleToBD = repository.save(createNewCar(carRequest));
-        return carToCarReponse(vehicleToBD);
+        CreateVehicleResponse response= carToCarReponse(vehicleToBD);
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle creation")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     //READ
     //ONE
     @Override
-    public CreateVehicleResponse seeCar(Long id){
+    public BaseResponse seeCar(Long id){
         Optional<Vehicle> carToBDOptional = repository.findById(id);
         if(carToBDOptional.isPresent()){
             Vehicle vehicleToBD = carToBDOptional.get();
-            return carToCarReponse(vehicleToBD);
+            CreateVehicleResponse response= carToCarReponse(vehicleToBD);
+            return BaseResponse.builder()
+                    .data(response)
+                    .message("vehicle by Id")
+                    .success(Boolean.TRUE)
+                    .httpStatus(HttpStatus.OK).build();
         }
         throw  new RuntimeException("NAH NAH Bye bye");
+
+
     }
     //ALL COMENTS
     @Override
-    public List<CreateVehicleResponse> seeCars(){
-        List<CreateVehicleResponse> listCarResponse = new ArrayList<>();
-        List<Vehicle> listAllVehicle = repository.findAll();
-
-        for (int i = 0; i< listAllVehicle.size(); i++){
-            listCarResponse.add(carToCarReponse(listAllVehicle.get(i)));
-        }
-        return listCarResponse;
+    public BaseResponse seeCars(){
+        List<CreateVehicleResponse>  response= repository.findAll()
+                .stream()
+                .map(this::carToCarReponse)
+                .collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
 
     }
 
-    //UPDATE
     @Override
-    public CreateUpdateVehicleResponse updateCar(Long id, CreateVehicleRequest carRequest){
+    public BaseResponse updateCar(Long id, CreateVehicleRequest carRequest){
         Optional<Vehicle> carOptional = repository.findById(id);
 
         if(carOptional.isPresent()){
             Vehicle newVehicle = createNewCar(carRequest);
             newVehicle.setId(carOptional.get().getId());
-            Owner owner = ownerService.findById(carRequest.getOwnerId());
-            newVehicle.setOwner(owner);
             repository.save(newVehicle);
-            return carToUpdateCar(newVehicle);
+            CreateUpdateVehicleResponse response= carToUpdateCar(newVehicle);
+            return BaseResponse.builder()
+                    .data(response)
+                    .message("vehicle updated data")
+                    .success(Boolean.TRUE)
+                    .httpStatus(HttpStatus.OK).build();
         }
         throw new RuntimeException("Vehicle do not exist");
 

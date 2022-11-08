@@ -2,11 +2,14 @@ package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateEngineRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateEngineRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.GetEngineResponse;
+import com.escuelita.demo.controllers.dtos.responses.GetOwnerResponse;
 import com.escuelita.demo.entities.Engine;
 import com.escuelita.demo.repositories.IEngineRepository;
 import com.escuelita.demo.services.interfaces.IEngineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,21 +23,37 @@ public class EngineServiceImpl implements IEngineService{
     private IEngineRepository repository;
 
     @Override
-    public List<GetEngineResponse> list() {
-        return repository.findAll()
+    public BaseResponse list() {
+        List<GetEngineResponse>  response= repository.findAll()
                 .stream()
                 .map(this::from)
                 .collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("engines list")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+
+    @Override
+    public BaseResponse get(Long id) {
+        GetEngineResponse response =from(id);
+        return BaseResponse.builder()
+                .data(response)
+                .message("engine by id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
-    public GetEngineResponse get(Long id) {
-        return from(id);
-    }
-
-    @Override
-    public GetEngineResponse create(CreateEngineRequest request) {
-        return from(repository.save(from(request)));
+    public BaseResponse create(CreateEngineRequest request) {
+        GetEngineResponse response= from(repository.save(from(request)));
+        return BaseResponse.builder()
+                .data(response)
+                .message("engine creation")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override

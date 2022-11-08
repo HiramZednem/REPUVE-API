@@ -10,13 +10,12 @@ import com.escuelita.demo.entities.Vehicle;
 import java.util.List;
 
 public interface IVehicleService {
-    //CREATE
-    CreateVehicleResponse createCar(CreateVehicleRequest car);
+    BaseResponse createCar(CreateVehicleRequest car);
     //READ
-    CreateVehicleResponse seeCar(Long id);
-    List<CreateVehicleResponse> seeCars();
+    BaseResponse seeCar(Long id);
+    BaseResponse seeCars();
     //UPDATE
-    CreateUpdateVehicleResponse updateCar(Long id, CreateVehicleRequest carRequest);
+    BaseResponse updateCar(Long id, CreateVehicleRequest carRequest);
     //DELETE
     void deleteCar(Long id);
 

@@ -2,6 +2,7 @@ package com.escuelita.demo.services.interfaces;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateEngineRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateEngineRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.GetEngineResponse;
 import com.escuelita.demo.entities.Engine;
 
@@ -10,11 +11,11 @@ import java.util.Optional;
 
 public interface IEngineService {
 
-    List<GetEngineResponse> list();
+    BaseResponse list();
 
-    GetEngineResponse get(Long id);
+    BaseResponse get(Long id);
 
-    GetEngineResponse create(CreateEngineRequest request);
+    BaseResponse create(CreateEngineRequest request);
 
     GetEngineResponse update(Long id, UpdateEngineRequest request);
 

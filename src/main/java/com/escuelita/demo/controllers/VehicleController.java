@@ -18,22 +18,23 @@ public class VehicleController {
     @Autowired
     IVehicleService service;
 
-    //CREATE
     @PostMapping
-    CreateVehicleResponse createCar(@RequestBody CreateVehicleRequest carRequest){
-        return service.createCar(carRequest);
+    public void createCar(@RequestBody CreateVehicleRequest carRequest){
+        BaseResponse baseResponse= service.createCar(carRequest);
+//        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     //READ
-    @GetMapping("{id}")
-    CreateVehicleResponse seeCar(@PathVariable Long id){
-         return service.seeCar(id);
-    }
     @GetMapping
-    List<CreateVehicleResponse> seeCars(){
-        return service.seeCars();
+    public ResponseEntity<BaseResponse> seeCars(){
+        BaseResponse baseResponse = service.seeCars();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
-
+    @GetMapping("{id}")
+    public ResponseEntity<BaseResponse> seeCar(@PathVariable Long id){
+        BaseResponse baseResponse = service.seeCar(id);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
+    }
 
     @GetMapping("own/{ownerId}")
     public ResponseEntity< BaseResponse> listAllVehiclesByOwnerId(@PathVariable Long ownerId){
@@ -59,8 +60,9 @@ public class VehicleController {
 
     //UPDATE
     @PutMapping("{id}")
-    CreateUpdateVehicleResponse updateCar(@PathVariable Long id, @RequestBody CreateVehicleRequest carRequest){
-         return service.updateCar(id, carRequest);
+    public ResponseEntity<BaseResponse> updateCar(@PathVariable Long id, @RequestBody CreateVehicleRequest carRequest){
+        BaseResponse baseResponse = service.updateCar(id, carRequest);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     //DELETE
