@@ -3,6 +3,7 @@ package com.escuelita.demo.services;
 import com.escuelita.demo.controllers.dtos.requests.CreateVehicleRequest;
 
 import com.escuelita.demo.controllers.dtos.responses.*;
+import com.escuelita.demo.entities.Engine;
 import com.escuelita.demo.entities.Owner;
 import com.escuelita.demo.entities.Vehicle;
 import com.escuelita.demo.entities.projections.VehicleEngineProjection;
@@ -166,7 +167,9 @@ public class VehicleServiceImpl implements IVehicleService {
         carResponse.setMileage(vehicleToBS.getMileage());
         carResponse.setColor(vehicleToBS.getColor());
         carResponse.setModel(vehicleToBS.getModel());
+        carResponse.setOwnerName(from(vehicleToBS.getOwner()));
         carResponse.setBrand(from(vehicleToBS.getBrand()));
+        carResponse.setEngine(from(vehicleToBS.getEngine()));
         //        carResponse.setOwnerName(from(vehicleToBS.getOwner()));
         return carResponse;
     }
@@ -174,6 +177,13 @@ public class VehicleServiceImpl implements IVehicleService {
     private OwnerResponse from(Owner owner){
         OwnerResponse ownerResponse = new OwnerResponse();
         ownerResponse.setName(owner.getFirstName()+" "+ owner.getLastName());
+        ownerResponse.setFirstName(owner.getFirstName());
+        ownerResponse.setLastName(owner.getLastName());
+        ownerResponse.setCountry(owner.getCountry());
+        ownerResponse.setCity(owner.getCity());
+        ownerResponse.setAddress(owner.getAddress());
+        ownerResponse.setRfc(owner.getRfc());
+        ownerResponse.setId(owner.getId());
         return ownerResponse;
     }
 
@@ -181,6 +191,13 @@ public class VehicleServiceImpl implements IVehicleService {
         BrandResponse response = new BrandResponse();
         response.setName(brand.getName());
         return response;
+    }
+
+    private EngineResponse from(Engine engine){
+    EngineResponse response=new EngineResponse();
+    response.setCylinder(engine.getCylinder());
+    response.setEngineType(engine.getEngineType());
+    return response;
     }
 
 

@@ -1,6 +1,7 @@
 package com.escuelita.demo.controllers.dtos.responses;
 
 import com.escuelita.demo.entities.Brand;
+import com.escuelita.demo.entities.Engine;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +23,7 @@ public class CreateVehicleResponse {
     private String model;
 
     private OwnerResponse ownerName;
-
     private BrandResponse brand;
+    private EngineResponse engine;
 
 }

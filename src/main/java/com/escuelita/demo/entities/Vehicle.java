@@ -38,7 +38,7 @@ public class Vehicle {
     @ManyToOne
     private Owner owner;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "engine_Id", referencedColumnName = "id")
     private Engine engine;
 
