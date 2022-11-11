@@ -1,9 +1,12 @@
 package com.escuelita.demo.entities;
 
+import com.escuelita.demo.entities.pivots.AgencyVehicle;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter @Getter
@@ -15,18 +18,32 @@ public class Vehicle {
     private Long id;
 
     @Column(nullable = false)
-    private int year;
+    private Integer year;
 
     @Column(nullable = false)
-    private double price;
+    private Double price;
 
     @Column(nullable = false)
-    private double mileage;
+    private Double mileage;
 
     @Column(nullable = false)
     private String color;
 
     @Column(nullable = false)
     private String model;
+
+    @ManyToOne
+    private Brand brand;
+
+    @ManyToOne
+    private Owner owner;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "engine_Id", referencedColumnName = "id")
+    private Engine engine;
+
+    @OneToMany(mappedBy="vehicle")
+    private List<AgencyVehicle> agencyVehicles;
+
 
 }

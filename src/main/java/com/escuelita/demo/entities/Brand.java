@@ -2,8 +2,10 @@ package com.escuelita.demo.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -11,14 +13,19 @@ import javax.persistence.*;
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    String headquarter;
+    private String headquarter;
 
     @Column(nullable = false)
-    String website;
+    private String website;
+
+
+    @OneToMany(mappedBy = "brand")
+    private List<Vehicle> vehicles;
+
 }

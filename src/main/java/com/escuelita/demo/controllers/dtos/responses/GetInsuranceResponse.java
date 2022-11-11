@@ -1,4 +1,4 @@
-package com.escuelita.demo.controllers.responses;
+package com.escuelita.demo.controllers.dtos.responses;
 
 import lombok.Getter;
 import lombok.Setter;

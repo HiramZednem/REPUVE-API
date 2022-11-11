@@ -2,14 +2,12 @@ package com.escuelita.demo.controllers;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateInsuranceRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateInsuranceRequest;
-import com.escuelita.demo.controllers.responses.CreateInsuranceResponse;
-import com.escuelita.demo.controllers.responses.GetInsuranceResponse;
-import com.escuelita.demo.controllers.responses.UpdateInsuranceResponse;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.services.interfaces.IInsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("insurance")
@@ -18,23 +16,27 @@ public class InsuranceController {
     private IInsuranceService service;
 
     @PostMapping
-    public CreateInsuranceResponse create(@RequestBody CreateInsuranceRequest request){
-        return service.create(request);
+    public ResponseEntity<BaseResponse> create(@RequestBody CreateInsuranceRequest request){
+        BaseResponse baseResponse = service.create(request);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping("{id}")
-    public GetInsuranceResponse get (@PathVariable Long id){
-        return service.get(id);
+    public ResponseEntity<BaseResponse> get (@PathVariable Long id){
+        BaseResponse baseResponse = service.get(id);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping
-    public List<GetInsuranceResponse> list(){
-        return service.list();
+    public ResponseEntity<BaseResponse> list(){
+        BaseResponse baseResponse = service.list();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("{id}")
-    public UpdateInsuranceResponse update(@RequestBody UpdateInsuranceRequest request, @PathVariable Long id){
-        return service.update(id, request);
+    public ResponseEntity<BaseResponse> update(@RequestBody UpdateInsuranceRequest request, @PathVariable Long id){
+        BaseResponse baseResponse = service.update(id, request);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @DeleteMapping("{id}")

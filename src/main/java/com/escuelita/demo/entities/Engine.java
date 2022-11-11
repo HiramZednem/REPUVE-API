@@ -2,6 +2,7 @@ package com.escuelita.demo.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 
@@ -19,5 +20,8 @@ public class Engine {
 
     @Column(nullable = false)
     private String engineType;
+
+    @OneToOne(mappedBy = "engine")
+    private Vehicle vehicle;
 
 }

@@ -2,9 +2,11 @@ package com.escuelita.demo.controllers;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateBrandRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateBrandRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.CreateBrandResponse;
 import com.escuelita.demo.services.interfaces.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,23 +19,27 @@ public class BrandController {
     private IBrandService service;
 
     @PostMapping
-    CreateBrandResponse create (@RequestBody CreateBrandRequest request){
-        return service.create(request);
+    public ResponseEntity<BaseResponse> create (@RequestBody CreateBrandRequest request){
+        BaseResponse baseResponse= service.create(request);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping("{id}")
-    CreateBrandResponse get (@PathVariable Long id){
-        return service.get(id);
+    public ResponseEntity<BaseResponse> get (@PathVariable Long id){
+        BaseResponse baseResponse= service.get(id);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @GetMapping
-    List<CreateBrandResponse> getAll () {
-        return service.getAll();
+    public ResponseEntity<BaseResponse> getAll () {
+        BaseResponse baseResponse= service.getAll();
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @PutMapping("{id}")
-    CreateBrandResponse update(@PathVariable Long id, @RequestBody UpdateBrandRequest request){
-        return service.update(id, request);
+    public ResponseEntity<BaseResponse> update(@PathVariable Long id, @RequestBody UpdateBrandRequest request){
+        BaseResponse baseResponse= service.update(id, request);
+        return new ResponseEntity<>(baseResponse, baseResponse.getHttpStatus());
     }
 
     @DeleteMapping("{id}")

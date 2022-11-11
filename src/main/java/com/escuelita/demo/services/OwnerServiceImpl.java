@@ -2,11 +2,15 @@ package com.escuelita.demo.services;
 
 import com.escuelita.demo.controllers.dtos.requests.CreateOwnerRequest;
 import com.escuelita.demo.controllers.dtos.requests.UpdateOwnerRequest;
+import com.escuelita.demo.controllers.dtos.responses.BaseResponse;
 import com.escuelita.demo.controllers.dtos.responses.GetOwnerResponse;
+import com.escuelita.demo.controllers.dtos.responses.OwnerResponse;
 import com.escuelita.demo.entities.Owner;
+import com.escuelita.demo.entities.projections.OwnerProjection;
 import com.escuelita.demo.repositories.IOwnerRepository;
 import com.escuelita.demo.services.interfaces.IOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,30 +22,57 @@ public class OwnerServiceImpl implements IOwnerService {
     @Autowired
     private IOwnerRepository repository;
 
-
     @Override
-    public List<GetOwnerResponse> list() {
-        return repository.findAll()
+    public BaseResponse list() {
+        List<GetOwnerResponse>  response= repository.findAll()
                 .stream()
                 .map(this::from)
                 .collect(Collectors.toList());
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list by owner id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
-    public GetOwnerResponse get(Long id) {
-       return from(id);
+    public BaseResponse get(Long id) {
+       GetOwnerResponse response= from(id);
+
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list by owner id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
-    public GetOwnerResponse create(CreateOwnerRequest request) {
-        return from(repository.save(from(request)));
+    public BaseResponse create(CreateOwnerRequest request) {
+
+        GetOwnerResponse response = from(repository.save(from(request)));
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list by owner id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
     }
 
     @Override
-    public GetOwnerResponse update(Long id, UpdateOwnerRequest request) {
+    public BaseResponse update(Long id, UpdateOwnerRequest request) {
         Owner owner=repository.findById(id).orElseThrow(()->new RuntimeException("Owner do not exist"));
         owner= update(owner, request);
-        return from(owner);
+        GetOwnerResponse response = from(owner);
+
+        return BaseResponse.builder()
+                .data(response)
+                .message("vehicle list by owner id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    @Override
+    public Owner findById(Long ownerId) {
+        return repository.findById(ownerId).orElseThrow(()->new RuntimeException("Owner do not exist"));
     }
 
     @Override
@@ -49,6 +80,31 @@ public class OwnerServiceImpl implements IOwnerService {
     repository.deleteById(id);
     }
 
+    @Override
+    public BaseResponse listAllOwnersByInsurance(Long id) {
+        List<OwnerProjection> owners = repository.listAllOwnersByInsurance(id);
+        List<OwnerResponse> responses = owners.stream().map(this::from).collect(Collectors.toList());
+
+        return BaseResponse.builder()
+                .data(responses)
+                .message("Owners list by insurance id")
+                .success(Boolean.TRUE)
+                .httpStatus(HttpStatus.OK).build();
+    }
+
+    private OwnerResponse from(OwnerProjection projection){
+        OwnerResponse response = new OwnerResponse();
+        response.setId(projection.getId());
+        response.setName(projection.getFirstName()+" "+ projection.getLastName());
+        response.setRfc(projection.getRfc());
+        response.setFirstName(projection.getFirstName());
+        response.setLastName(projection.getLastName());
+        response.setCountry(projection.getCountry());
+        response.setCity(projection.getCity());
+        response.setAddress(projection.getAddress());
+
+        return response;
+    }
     private Owner update(Owner owner, UpdateOwnerRequest request){
         owner.setFirstName(request.getFirstName());
         owner.setLastName(request.getLastName());
