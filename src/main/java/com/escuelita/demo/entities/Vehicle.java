@@ -38,8 +38,8 @@ public class Vehicle {
     @ManyToOne
     private Owner owner;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "engine_Id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "engine_id", referencedColumnName = "id")
     private Engine engine;
 
     @OneToMany(mappedBy="vehicle")

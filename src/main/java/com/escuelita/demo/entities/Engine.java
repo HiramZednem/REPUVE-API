@@ -21,7 +21,7 @@ public class Engine {
     @Column(nullable = false)
     private String engineType;
 
-    @OneToOne(mappedBy = "engine")
+    @OneToOne(mappedBy = "engine",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Vehicle vehicle;
 
 }
