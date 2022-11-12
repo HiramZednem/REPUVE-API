@@ -157,6 +157,8 @@ public class VehicleServiceImpl implements IVehicleService {
 
         Brand brand = brandService.findBrandById(carRequest.getBrandId());
         newVehicle.setBrand(brand);
+        Engine engine = engineService.findById(carRequest.getEngineId());
+        newVehicle.setEngine(engine);
         return newVehicle;
     }
     private CreateVehicleResponse carToCarReponse (Vehicle vehicleToBS){

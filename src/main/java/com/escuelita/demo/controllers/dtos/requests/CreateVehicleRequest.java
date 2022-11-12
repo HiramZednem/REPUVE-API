@@ -21,4 +21,6 @@ public class CreateVehicleRequest {
 
     private Long brandId;
 
+    private Long engineId;
+
 }
